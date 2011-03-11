@@ -10,7 +10,6 @@ _ReSharper.*
 *.userprefs
 .DS_Store?
 ehthumbs.db
-Icon?
 Thumbs.db
 *.sqlite
 *.iso
@@ -22,3 +21,4 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
+*.pidb
