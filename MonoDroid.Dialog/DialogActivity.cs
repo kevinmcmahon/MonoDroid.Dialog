@@ -62,5 +62,4 @@ namespace MonoDroid.Dialog
 		}
 
 	}
->>>>>>> 6f0c2befc273ad07b163ab827e8eab56a7d3a0e8
 }
