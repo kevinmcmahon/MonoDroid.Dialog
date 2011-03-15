@@ -12,7 +12,11 @@ namespace DialogSampleApp
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+			
+			
+			ImageView img = new ImageView(this);
+			img.SetImageResource(Resource.Drawable.spadeicon);
+			
             var root = new RootElement("Test Root Elem")
                            {
                                new Section("Test Header", "Test Footer")
@@ -27,7 +31,7 @@ namespace DialogSampleApp
                                    {
                                        new StringElement("This is the String Element", "The Value"),
                                        new CheckboxElement("Check this out", true),
-                                     //  new EntryElement("Username", "Enter your login",""),
+                                       new ImageElement(img),
                                    }
                            };
 
