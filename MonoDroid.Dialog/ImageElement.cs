@@ -71,27 +71,5 @@ namespace MonoDroid.Dialog
 
             return view;
 		}
-		
-		public Bitmap GetRoundedCornerBitmap(Bitmap bitmap) 
-		{
-    		Bitmap output = Bitmap.CreateBitmap(bitmap.Width, bitmap.Height,Bitmap.Config.Argb8888);
-     		
-			Paint paint = new Paint() { 
-				AntiAlias = true, 
-				Color = color
-			};
-			
-			Rect rect = new Rect(0, 0, bitmap.Width, bitmap.Height);
-			RectF rectF = new RectF(rect);
-			
-			Canvas canvas = new Canvas(output);
-		    canvas.DrawARGB(0, 0, 0, 0);
-		    canvas.DrawRoundRect(rectF, roundPx, roundPx, paint);
-		 
-		    paint.SetXfermode(new PorterDuffXfermode(PorterDuff.Mode.SrcIn));
-		    canvas.DrawBitmap(bitmap, rect, rect, paint);
-		 
-		    return output;
-    	}
 	}
 }

@@ -32,6 +32,7 @@ namespace DialogSampleApp
                                        new StringElement("This is the String Element", "The Value"),
                                        new CheckboxElement("Check this out", true),
                                        new ImageElement(img),
+									   new HtmlElement("Go to Google.com","http://www.google.com")
                                    }
                            };
 

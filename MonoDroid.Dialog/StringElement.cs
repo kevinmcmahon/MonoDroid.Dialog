@@ -63,12 +63,6 @@ namespace MonoDroid.Dialog
             return Caption;
         }
 
-        //public override void Selected()
-       // {
-       //     if (Tapped != null)
-       //         Tapped();
-       // }
-
         public override bool Matches(string text)
         {
             return (Value != null ? Value.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) != -1 : false) ||
