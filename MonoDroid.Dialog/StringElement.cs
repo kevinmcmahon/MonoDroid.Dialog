@@ -39,7 +39,7 @@ namespace MonoDroid.Dialog
             var parms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
                                                         ViewGroup.LayoutParams.WrapContent);
             parms.SetMargins(5, 3, 5, 0);
-            parms.AddRule((int) LayoutRules.AlignParentLeft);
+            parms.AddRule( LayoutRules.AlignParentLeft);
 
             _caption = new TextView(context) {Text = Caption, TextSize = 16f};
             view.AddView(_caption, parms);
@@ -49,7 +49,7 @@ namespace MonoDroid.Dialog
                 var tparms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
                                                              ViewGroup.LayoutParams.WrapContent);
                 tparms.SetMargins(5, 3, 5, 0);
-                tparms.AddRule((int) LayoutRules.AlignParentRight);
+                tparms.AddRule( LayoutRules.AlignParentRight);
 
                 _text = new TextView(context) {Text = Value, TextSize = 16f};
                 view.AddView(_text, tparms);

@@ -62,7 +62,7 @@ namespace MonoDroid.Dialog
             var parms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
                                                         ViewGroup.LayoutParams.WrapContent);
             parms.SetMargins(5, 3, 5, 0);
-            parms.AddRule((int) LayoutRules.CenterVertical);
+            parms.AddRule( LayoutRules.CenterVertical);
 
             tv = new TextView(context) {Text = Caption, TextSize = 16f};
             view.AddView(tv, parms);
@@ -70,8 +70,8 @@ namespace MonoDroid.Dialog
             var sparms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
                                                          ViewGroup.LayoutParams.WrapContent);
             sparms.SetMargins(5, 3, 5, 0);
-            sparms.AddRule((int) LayoutRules.CenterVertical);
-            sparms.AddRule((int) LayoutRules.AlignParentRight);
+            sparms.AddRule( LayoutRules.CenterVertical);
+            sparms.AddRule( LayoutRules.AlignParentRight);
 
             sw = new ToggleButton(context) {Tag = 1, Checked = Value};
 
