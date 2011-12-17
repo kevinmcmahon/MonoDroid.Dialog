@@ -133,16 +133,16 @@ namespace MonoDroid.Dialog
 			var tvparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
 														  ViewGroup.LayoutParams.WrapContent);
 			tvparams.SetMargins(5,3,5,0);
-            tvparams.AddRule((int)LayoutRules.CenterVertical);
-            tvparams.AddRule((int)LayoutRules.AlignParentLeft);
+            tvparams.AddRule(LayoutRules.CenterVertical);
+            tvparams.AddRule(LayoutRules.AlignParentLeft);
 
 			var tv = new TextView(_context) {Text = Caption, TextSize = 16f};
 
 			var eparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
 														  ViewGroup.LayoutParams.WrapContent);
 			eparams.SetMargins(5, 3, 5, 0);
-            eparams.AddRule((int)LayoutRules.CenterVertical);
-            eparams.AddRule((int)LayoutRules.AlignParentRight);
+            eparams.AddRule(LayoutRules.CenterVertical);
+            eparams.AddRule(LayoutRules.AlignParentRight);
 
 			cell.AddView(tv,tvparams);
 			cell.AddView(entry,eparams);
