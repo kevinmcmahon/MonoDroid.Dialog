@@ -65,7 +65,7 @@ namespace MonoDroid.Dialog
             var parms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
                                                         ViewGroup.LayoutParams.WrapContent);
             parms.SetMargins(5, 2, 5, 2);
-            parms.AddRule((int) LayoutRules.AlignParentLeft);
+            parms.AddRule(LayoutRules.AlignParentLeft);
 			
 			view.AddView(scaled,parms);
 
