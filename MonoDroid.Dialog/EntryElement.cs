@@ -3,6 +3,7 @@ using System.Drawing;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Android.Text;
 
 namespace MonoDroid.Dialog
 {
@@ -87,7 +88,7 @@ namespace MonoDroid.Dialog
 
 				if(isPassword)
 				{
-					_entry.InputType = Android.Resource.Attribute.Password;
+					_entry.InputType = InputTypes.TextVariationPassword;
 				}
 
 				entry = _entry;
