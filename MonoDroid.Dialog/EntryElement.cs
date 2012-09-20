@@ -26,7 +26,7 @@ namespace MonoDroid.Dialog
 		private string hint;
 		private bool isPassword;
 		private EditText entry;
-		private Context _context;
+		private Context _context = null;
 
 		public event EventHandler Changed;
 
@@ -62,10 +62,6 @@ namespace MonoDroid.Dialog
 				var ee = e as EntryElement;
 				if (ee == null)
 					continue;
-				
-				//var size = tv.StringSize(ee.Caption, font);
-				//if (size.Width > max.Width)
-				//    max = size;
 			}
 			s.EntryAlignment = new SizeF(25 + Math.Min(max.Width, 160), max.Height);
 			return s.EntryAlignment;
@@ -73,11 +69,11 @@ namespace MonoDroid.Dialog
 
 		public override View GetView(Context context, View convertView, ViewGroup parent)
 		{
+            _context = context;
 			var cell = new RelativeLayout(context);
 
 			if (entry == null)
 			{
-				//SizeF size = ComputeEntryPosition(tv, cell);
 				var _entry = new EditText(context)
 								 {
 									 Tag = 1,
@@ -87,7 +83,7 @@ namespace MonoDroid.Dialog
 
 				if(isPassword)
 				{
-					_entry.InputType = Android.Resource.Attribute.Password;
+					_entry.InputType = Android.Text.InputTypes.TextVariationPassword;
 				}
 
 				entry = _entry;
@@ -96,39 +92,6 @@ namespace MonoDroid.Dialog
 				{
 					FetchValue();
 				};
-
-				//entry.ShouldReturn += delegate
-				//{
-				//    EntryElement focus = null;
-				//    foreach (var e in (Parent as Section).Elements)
-				//    {
-				//        if (e == this)
-				//            focus = this;
-				//        else if (focus != null && e is EntryElement)
-				//            focus = e as EntryElement;
-				//    }
-
-				//    if (focus != this)
-				//        focus.entry.BecomeFirstResponder();
-				//    else
-				//        focus.entry.ResignFirstResponder();
-
-				//    return true;
-				//};
-				//entry.Started += delegate
-				//{
-				//    EntryElement self = null;
-				//    var returnType = UIReturnKeyType.Default;
-
-				//    foreach (var e in (Parent as Section).Elements)
-				//    {
-				//        if (e == this)
-				//            self = this;
-				//        else if (self != null && e is EntryElement)
-				//            returnType = UIReturnKeyType.Next;
-				//    }
-				//    entry.ReturnKeyType = returnType;
-				//};
 			}
 			var tvparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
 														  ViewGroup.LayoutParams.WrapContent);
@@ -136,7 +99,7 @@ namespace MonoDroid.Dialog
             tvparams.AddRule(LayoutRules.CenterVertical);
             tvparams.AddRule(LayoutRules.AlignParentLeft);
 
-			var tv = new TextView(_context) {Text = Caption, TextSize = 16f};
+			var tv = new TextView(context) {Text = Caption, TextSize = 16f};
 
 			var eparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
 														  ViewGroup.LayoutParams.WrapContent);
