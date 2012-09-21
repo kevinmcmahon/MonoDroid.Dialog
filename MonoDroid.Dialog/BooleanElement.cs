@@ -41,7 +41,6 @@ namespace MonoDroid.Dialog
     /// </summary>
     public class BooleanElement : BoolElement
     {
-        private static string bkey = "BooleanElement";
         private ToggleButton sw;
         private TextView tv;
 

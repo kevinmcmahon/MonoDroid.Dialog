@@ -11,7 +11,7 @@ namespace MonoDroid.Dialog
 {
     public class HtmlElement : StringElement
     {
-        public string Value;
+        public new string Value;
 		
         public HtmlElement(string caption, string url)
             : base(caption)

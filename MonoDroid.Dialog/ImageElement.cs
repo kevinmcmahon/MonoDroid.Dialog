@@ -15,8 +15,6 @@ namespace MonoDroid.Dialog
 		// radius for rounding
 		const int roundPx = 12;
 		
-		int color = 0xff4242;
-		
 		public ImageView Value;
 		ImageView scaled;
 		
