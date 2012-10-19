@@ -313,13 +313,17 @@ namespace MonoDroid.Dialog
             if (radio != null)
             {
                 string radioValue = GetSelectedValue();
+
                 cell = DroidResources.LoadStringElementLayout(context, convertView, parent, LayoutId, out _caption, out _value);
                 if (cell != null)
                 {
                     _caption.Text = Caption;
                     _value.Text = radioValue;
-//                    this.Click = (o, e) => { SelectRadio(); };
-					this.Click += delegate { SelectRadio(); };
+					cell.Click += delegate(object sender, EventArgs e) {
+						SelectRadio();
+					};
+                    //this.Click = (o, e) => { SelectRadio(); };
+					//this.Click += delegate { SelectRadio(); };
                 }
             }
             else if (_group != null)

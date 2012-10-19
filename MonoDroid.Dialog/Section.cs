@@ -358,7 +358,7 @@ namespace MonoDroid.Dialog
 				?? new TextView(context, null, Android.Resource.Attribute.ListSeparatorTextViewStyle);
 
 			view.Text = this.Caption;
-
+			view.SetBackgroundColor(Android.Graphics.Color.Yellow);
 			return view;
 		}
 

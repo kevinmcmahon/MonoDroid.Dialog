@@ -52,6 +52,7 @@ namespace DialogSampleApp
                                 Hint = "Enter Password",
                                 Password = true,
                             },
+							new ProgressBarElement("")
                         }
                 };
 
