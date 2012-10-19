@@ -86,7 +86,6 @@ namespace MonoDroid.Dialog
         {
 			var view = LayoutId == 0 ? new View(context) : null;
 			
-			
 //			view.Click += delegate {
 //				
 //			};

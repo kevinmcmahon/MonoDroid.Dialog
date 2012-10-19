@@ -84,6 +84,11 @@ namespace MonoDroid.Dialog
 			FooterView = footer;
 		}
 
+		public Android.Graphics.Color BackgroundColor {
+			get;
+			set;
+		}
+
 		/// <summary>
 		///    The section header, as a string
 		/// </summary>
@@ -358,7 +363,16 @@ namespace MonoDroid.Dialog
 				?? new TextView(context, null, Android.Resource.Attribute.ListSeparatorTextViewStyle);
 
 			view.Text = this.Caption;
-			view.SetBackgroundColor(Android.Graphics.Color.Yellow);
+			if(BackgroundColor != null)
+			{
+				view.SetBackgroundColor(BackgroundColor);
+			}
+
+			if(String.IsNullOrEmpty(view.Text))
+			{
+				view.Visibility = ViewStates.Gone;
+			}
+
 			return view;
 		}
 

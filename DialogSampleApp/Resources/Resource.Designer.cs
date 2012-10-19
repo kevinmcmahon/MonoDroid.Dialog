@@ -79,6 +79,9 @@ namespace DialogSampleApp
 			// aapt resource value: 0x7f050004
 			public const int dialog_ValueField = 2131034116;
 			
+			// aapt resource value: 0x7f05000e
+			public const int dialog_listView = 2131034126;
+			
 			// aapt resource value: 0x7f050009
 			public const int dialog_progressbar = 2131034121;
 			

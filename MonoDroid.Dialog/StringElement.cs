@@ -24,6 +24,11 @@ namespace MonoDroid.Dialog
 
         public object Alignment;
 
+		public bool DetailTextSingleLine {
+			get;
+			set;
+		}
+
         public StringElement(string caption)
             : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
         {
@@ -70,6 +75,13 @@ namespace MonoDroid.Dialog
 				_caption.TextSize = FontSize;
                 _text.Text = Value;
 				_text.TextSize = FontSize;
+				_text.SetSingleLine(DetailTextSingleLine);
+
+				if(String.IsNullOrEmpty(_caption.Text))
+				{
+					_caption.Visibility = ViewStates.Gone;
+				}
+
 				if (Click != null)
 					view.Click += delegate { this.Click(); };
             }
