@@ -1,23 +1,20 @@
-﻿using System;
-using Uri=Android.Net.Uri;
-using Android.Content;
-using Android.Views;
-using Android.Widget;
-using Android.Webkit;
 using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Views;
+using Android.Webkit;
+using Uri = Android.Net.Uri;
 
 namespace MonoDroid.Dialog
 {
     public class HtmlElement : StringElement
     {
-        public new string Value;
+        // public string Value;
 		
         public HtmlElement(string caption, string url)
             : base(caption)
         {
             Url = Uri.Parse(url);
-			
         }
 
         public HtmlElement(string caption, Uri uri)
@@ -32,17 +29,15 @@ namespace MonoDroid.Dialog
 		{
 			Intent intent = new Intent(context, typeof(HtmlActivity));
 			intent.PutExtra("URL",this.Url.ToString());
-			intent.AddFlags(ActivityFlags.NewTask);			
+			intent.PutExtra("Title",Caption);
+			intent.AddFlags(ActivityFlags.NewTask);	
 			context.StartActivity(intent);
 		}
-		
-		public override View GetView (Context context, View convertView, ViewGroup parent)
+
+        public override View GetView(Context context, View convertView, ViewGroup parent)
 		{
 			View view = base.GetView (context, convertView, parent);
-			
-			view.Click += delegate(object sender, EventArgs e) {
-				OpenUrl(context);
-			};
+			this.Click = delegate { OpenUrl(context); };
 			return view;
 		}
     }
@@ -56,6 +51,7 @@ namespace MonoDroid.Dialog
 			
 			Intent i = this.Intent;
 			string url = i.GetStringExtra("URL");
+			this.Title = i.GetStringExtra("Title");
 			
 			WebView webview = new WebView(this);
 			webview.Settings.JavaScriptEnabled = true;

@@ -1,66 +1,92 @@
 using System;
+using System.Linq;
+
+using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Android.Runtime;
+
 
 namespace MonoDroid.Dialog
 {
     public class StringElement : Element
     {
-        public string Value;
-        private TextView _caption;
-        private TextView _text;
+		public int FontSize {get;set;}
+        public string Value
+        {
+            get { return _value; }
+            set { _value = value; if (_text != null) _text.Text = _value; }
+        }
+        private string _value;
 
-        public StringElement(string caption) : base(caption)
+        public object Alignment;
+
+        public StringElement(string caption)
+            : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
+        {
+        }
+
+        public StringElement(string caption, int layoutId)
+            : base(caption, layoutId)
         {
         }
 
         public StringElement(string caption, string value)
-            : base(caption)
+            : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
         {
             Value = value;
         }
-
-        public StringElement(string caption, Action click)
-            : base(caption)
+		
+		
+        public StringElement(string caption, string value, Action clicked)
+            : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
         {
-			this.Click = click;
+            Value = value;
+			this.Click = clicked;
         }
 
-        public object Alignment;
-
-		public override View GetView(Context context, View convertView, ViewGroup parent)
+        public StringElement(string caption, string value, int layoutId)
+            : base(caption, layoutId)
         {
-			var view = convertView as RelativeLayout;
-			
-			if (view == null)
-				view = new RelativeLayout(context);
-						
-            var parms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-                                                        ViewGroup.LayoutParams.WrapContent);
-            parms.SetMargins(5, 3, 5, 0);
-            parms.AddRule( LayoutRules.AlignParentLeft);
+            Value = value;
+        }
+		
+		public StringElement(string caption, Action clicked)
+            : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
+        {
+            Value = null;
+			this.Click = clicked;
+        }
 
-            _caption = new TextView(context) {Text = Caption, TextSize = 16f};
-            view.AddView(_caption, parms);
-
-            if (!string.IsNullOrEmpty(Value))
+        public override View GetView(Context context, View convertView, ViewGroup parent)
+        {
+            View view = DroidResources.LoadStringElementLayout(context, convertView, parent, LayoutId, out _caption, out _text);
+            if (view != null)
             {
-                var tparms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-                                                             ViewGroup.LayoutParams.WrapContent);
-                tparms.SetMargins(5, 3, 5, 0);
-                tparms.AddRule( LayoutRules.AlignParentRight);
-
-                _text = new TextView(context) {Text = Value, TextSize = 16f};
-                view.AddView(_text, tparms);
+                _caption.Text = Caption;
+				_caption.TextSize = FontSize;
+                _text.Text = Value;
+				_text.TextSize = FontSize;
+				if (Click != null)
+					view.Click += delegate { this.Click(); };
             }
-
             return view;
         }
+		
+		public override void Selected ()
+		{
+			base.Selected ();
+			
+			if(this.Click != null) {
+				Click();
+			}
+		}
 
         public override string Summary()
         {
-            return Caption;
+            return Value;
         }
 
         public override bool Matches(string text)
@@ -69,13 +95,16 @@ namespace MonoDroid.Dialog
                    base.Matches(text);
         }
 
+        protected TextView _caption;
+        protected TextView _text;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _caption.Dispose();
+                //_caption.Dispose();
                 _caption = null;
-                _text.Dispose();
+                //_text.Dispose();
                 _text = null;
             }
         }

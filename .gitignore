@@ -21,4 +21,5 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
-*.pidb
+**/*.pidb
+.DS_Store

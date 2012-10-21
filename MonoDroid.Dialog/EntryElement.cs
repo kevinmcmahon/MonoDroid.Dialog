@@ -1,138 +1,106 @@
-﻿using System;
-using System.Drawing;
+using System;
 using Android.Content;
+using Android.Text;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Android.App;
 
 namespace MonoDroid.Dialog
 {
-	public class EntryElement : Element
-	{
+	public class EntryElement : Element, ITextWatcher
+	{	
 		public string Value
 		{
-			get
-			{
-				return val;
-			}
+			get { return _val; }
 			set
 			{
-				val = value;
-				if (entry != null)
-					entry.Text  = value;
+				_val = value;
+                if (_entry != null && _entry.Text != value)
+                {
+                    _entry.Text = value;
+                    if (ValueChanged != null)
+                        ValueChanged(this, EventArgs.Empty);
+                }
 			}
 		}
 		
-		private string val;
-		private string hint;
-		private bool isPassword;
-		private EditText entry;
-		private Context _context = null;
+		public event EventHandler ValueChanged;
 
-		public event EventHandler Changed;
-
-		public EntryElement(string caption, string hint, string value)
-			: base(caption)
+		public EntryElement(string caption, string value)
+            : this(caption, value, (int)DroidResources.ElementLayout.dialog_textfieldright)
 		{
-			Value = value;
-			this.hint = hint;
+			
+		}
+		
+		public EntryElement(string caption, string hint,string value) : this(caption,value)
+		{
+			Hint = hint;
 		}
 
-		public EntryElement(string caption, string hint, string value, bool isPassword)
-			: base(caption)
+        public EntryElement(string caption, string @value, int layoutId)
+            : base(caption, layoutId)
+        {
+            _val = @value;
+            Lines = 1;
+        }
+        
+        public override string Summary()
 		{
-			Value = value;
-			this.isPassword = isPassword;
-			this.hint = hint;
+			return _val;
 		}
 
-		public override string Summary()
+        public bool Password { get; set; }
+        public bool Numeric { get; set; }
+        public string Hint { get; set; }
+        public int Lines { get; set; }
+
+        protected EditText _entry;
+        private string _val;
+		protected Action _entryClicked { get;set; }
+		
+
+        public override View GetView(Context context, View convertView, ViewGroup parent)
 		{
-			return Value;
-		}
+            Log.Debug("MDD", "EntryElement: GetView: ConvertView: " + ((convertView == null) ? "false" : "true") +
+                " Value: " + Value + " Hint: " + Hint + " Password: " + (Password ? "true" : "false"));
+			
+			
+            TextView label;
+            var view = DroidResources.LoadStringEntryLayout(context, convertView, parent, LayoutId, out label, out _entry);
+            if (view != null)
+            {
+                // Warning! Crazy ass hack ahead!
+                // since we can't know when out convertedView was was swapped from inside us, we store the
+                // old textwatcher in the tag element so it can be removed!!!! (barf, rech, yucky!)
+                if (_entry.Tag != null)
+                    _entry.RemoveTextChangedListener((ITextWatcher)_entry.Tag);
 
-		SizeF ComputeEntryPosition()
-		{
-			Section s = Parent as Section;
-			if (s.EntryAlignment.Width != 0)
-				return s.EntryAlignment;
+                _entry.Text = this.Value;
+                _entry.Hint = this.Hint;
 
-			SizeF max = new SizeF(-1, -1);
-			foreach (var e in s.Elements)
-			{
-				var ee = e as EntryElement;
-				if (ee == null)
-					continue;
-			}
-			s.EntryAlignment = new SizeF(25 + Math.Min(max.Width, 160), max.Height);
-			return s.EntryAlignment;
-		}
+                if (this.Password)
+                    _entry.InputType = (InputTypes.ClassText | InputTypes.TextVariationPassword);
+                else if (this.Numeric)
+                    _entry.InputType = (InputTypes.ClassNumber | InputTypes.NumberFlagDecimal | InputTypes.NumberFlagSigned);
+                else
+                    _entry.InputType = InputTypes.ClassText;
 
-		public override View GetView(Context context, View convertView, ViewGroup parent)
-		{
-            _context = context;
-			var cell = new RelativeLayout(context);
+                // continuation of crazy ass hack, stash away the listener value so we can look it up later
+                _entry.Tag = this;
+                _entry.AddTextChangedListener(this);
 
-			if (entry == null)
-			{
-				var _entry = new EditText(context)
-								 {
-									 Tag = 1,
-									 Hint = hint ?? "",
-									 Text = Value ?? "",
-								 };
-
-				if(isPassword)
-				{
-					_entry.InputType = Android.Text.InputTypes.TextVariationPassword;
-				}
-
-				entry = _entry;
-
-				entry.TextChanged += delegate
-				{
-					FetchValue();
-				};
-			}
-			var tvparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-														  ViewGroup.LayoutParams.WrapContent);
-			tvparams.SetMargins(5,3,5,0);
-            tvparams.AddRule(LayoutRules.CenterVertical);
-            tvparams.AddRule(LayoutRules.AlignParentLeft);
-
-			var tv = new TextView(context) {Text = Caption, TextSize = 16f};
-
-			var eparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-														  ViewGroup.LayoutParams.WrapContent);
-			eparams.SetMargins(5, 3, 5, 0);
-            eparams.AddRule(LayoutRules.CenterVertical);
-            eparams.AddRule(LayoutRules.AlignParentRight);
-
-			cell.AddView(tv,tvparams);
-			cell.AddView(entry,eparams);
-			return cell;
-		}
-
-		public void FetchValue()
-		{
-			if (entry == null)
-				return;
-
-			var newValue = entry.Text.ToString();
-			var diff = newValue != Value;
-			Value = newValue;
-
-			if (diff && Changed != null)
-			{
-				Changed(this, EventArgs.Empty);
-			}
+                label.Text = (label != null) ? Caption: string.Empty;
+            }
+			return view;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
 			{
-				entry.Dispose();
-				entry = null;
+				//_entry.Dispose();
+				_entry = null;
 			}
 		}
 
@@ -140,5 +108,40 @@ namespace MonoDroid.Dialog
 		{
 			return (Value != null ? Value.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) != -1 : false) || base.Matches(text);
 		}
-	}
+
+        public void OnTextChanged(Java.Lang.ICharSequence s, int start, int before, int count)
+        {
+            this.Value = s.ToString();
+        }
+
+        public void AfterTextChanged(IEditable s)
+        {
+			Console.Write("foo");
+            // nothing needed
+        }
+
+        public void BeforeTextChanged(Java.Lang.ICharSequence s, int start, int count, int after)
+        {
+			Console.Write("foo");
+            // nothing needed
+        }
+		
+		public override void Selected ()
+		{
+			base.Selected ();
+			
+			if(_entry != null) {
+				var context = this.GetContext();
+				var entryDialog = new AlertDialog.Builder(context)
+					.SetTitle("Enter Text")
+					.SetView(_entry)
+					.SetPositiveButton("OK", (o, e) => {
+							this.Value = _entry.Text;
+					})
+					.Create();
+				
+				entryDialog.Show();
+			}
+		}
+    }
 }

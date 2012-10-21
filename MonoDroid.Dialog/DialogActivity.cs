@@ -1,62 +1,51 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 
 namespace MonoDroid.Dialog
 {
+    public class DialogInstanceData : Java.Lang.Object
+    {
+        public DialogInstanceData()
+        {
+            _dialogState = new Dictionary<string, string>();
+        }
+
+        private Dictionary<String, String> _dialogState;
+    }
+
 	public class DialogActivity : ListActivity
 	{
-		public DialogActivity(RootElement root)
-			: base()
-		{
-			this.Root = root;
-			this.DialogAdapter = new DialogAdapter(this, root);
-		}
-
-		public RootElement Root
-		{
-			get;
-			set;
-		}
-
-		public DialogAdapter DialogAdapter
-		{
-			get;
-			private set;
-		}
-
+		public RootElement Root { get; set; }
+        private DialogHelper Dialog { get; set; }
+		
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+            Dialog = new DialogHelper(this, this.ListView, this.Root);
 
-			this.ListAdapter = this.DialogAdapter;
-            this.ListView.ItemClick += ListView_ItemClick;
-			this.ListView.ItemLongClick += ListView_ItemLongClick;
-		}
+            if (this.LastNonConfigurationInstance != null)
+            {
+                // apply value changes that are saved
+            }
+        }
 
-		void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        public override Java.Lang.Object OnRetainNonConfigurationInstance()
+        {
+            return null;
+        }
+		
+		public void ReloadData()
 		{
-			var elem = this.DialogAdapter[e.Position] as Element;
-
-			if (elem != null && elem.LongClick != null)
-				elem.LongClick();
+			if(Root == null) {
+				return;
+			}
+			
+			this.Dialog.ReloadData();
+			
+			
 		}
-
-		void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-		{
-			var elem = this.DialogAdapter[e.Position] as Element;
-
-			if (elem != null && elem.Click != null)
-				elem.Click();
-		}
-
 	}
 }
