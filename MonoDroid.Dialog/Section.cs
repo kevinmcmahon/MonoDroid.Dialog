@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Orientation = Android.Widget.Orientation;
+using Android.Graphics;
 
 namespace MonoDroid.Dialog
 {
@@ -54,6 +55,16 @@ namespace MonoDroid.Dialog
 			: base(caption)
 		{
 			Adapter = new SectionAdapter(this);
+			BackgroundColor = Color.DarkRed;
+			TextColor = Color.White;
+		}
+
+		public Section(string caption, Color backgroundColor, Color textColor)
+			: base(caption)
+		{
+			Adapter = new SectionAdapter(this);
+			BackgroundColor = backgroundColor;
+			TextColor = textColor;
 		}
 
 		/// <summary>
@@ -85,6 +96,16 @@ namespace MonoDroid.Dialog
 		}
 
 		public Android.Graphics.Color BackgroundColor {
+			get;
+			set;
+		}
+
+		public Android.Graphics.Color TextColor {
+			get;
+			set;
+		}
+
+		public int SectionPadding {
 			get;
 			set;
 		}
@@ -363,9 +384,13 @@ namespace MonoDroid.Dialog
 				?? new TextView(context, null, Android.Resource.Attribute.ListSeparatorTextViewStyle);
 
 			view.Text = this.Caption;
-			if(BackgroundColor != null)
+
+			view.SetBackgroundColor(BackgroundColor);
+			view.SetTextColor(TextColor);
+
+			if(SectionPadding > 0)
 			{
-				view.SetBackgroundColor(BackgroundColor);
+				view.SetPadding(SectionPadding, SectionPadding, SectionPadding, SectionPadding);
 			}
 
 			if(String.IsNullOrEmpty(view.Text))

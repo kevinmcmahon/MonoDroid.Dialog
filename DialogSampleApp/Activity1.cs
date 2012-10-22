@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using MonoDroid.Dialog;
 using System;
+using Android.Graphics;
 
 namespace DialogSampleApp
 {
@@ -31,24 +32,31 @@ namespace DialogSampleApp
 			SetContentView (Resource.Layout.main);
 			progressBar = FindViewById<ProgressBar> (Resource.Id.dialog_progressbar);
 			listView = FindViewById<ListView> (Resource.Id.dialog_listView);
+
+			var s = new Section("Test Header", "Test Footer")
+			{
+				new StringElement("Do Something", "Foo", () => {
+					Console.WriteLine("Did Something");
+					
+				}),
+				new ButtonElement("DialogActivity", () => StartNew()),
+				new BooleanElement("Push my button", true),
+				new BooleanElement("Push this too", false),
+				new StringElement("Text label", "The Value"),
+				new BooleanElement("Push my button", true),
+				new BooleanElement("Push this too", false),
+			};
+
+			s.BackgroundColor = Color.DarkRed;
+
 			var root = new RootElement ("Test Root Elem")
                 {
-                    new Section("Test Header", "Test Footer")
-                        {
-							new StringElement("Do Something", "Foo", () => {
-								Console.WriteLine("Did Something");
-								
-							}),
-                            new ButtonElement("DialogActivity", () => StartNew()),
-                            new BooleanElement("Push my button", true),
-                            new BooleanElement("Push this too", false),
-                            new StringElement("Text label", "The Value"),
-							new BooleanElement("Push my button", true),
-                            new BooleanElement("Push this too", false),
-                        },
+                    s,
                     new Section("Part II")
                         {
-                            new StringElement("This is the String Element", "The Value"),
+                            new StringElement("This is the String Element", "The Value", delegate {
+						Console.WriteLine("Clicked string element.");}
+                           ),
                             new CheckboxElement("Check this out", true),
                             new EntryElement("Username",""){
                                 Hint = "Enter Login"
