@@ -55,6 +55,17 @@ namespace MonoDroid.Dialog
 			set;
 		}
 
+		/// <summary>
+		/// When the button is clicked, this can be sent is as an argument
+		/// </summary>
+		/// <value>
+		/// The command argument.
+		/// </value>
+		public object CommandArgument {
+			get;
+			set;
+		}
+
 		public StringElement (string caption)
             : base(caption, (int)DroidResources.ElementLayout.dialog_labelfieldright)
 		{
