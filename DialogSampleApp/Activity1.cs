@@ -26,6 +26,11 @@ namespace DialogSampleApp
 			StartActivity (typeof(Activity2));
 		}
 
+		void btnString_Click()
+		{
+			Console.WriteLine("OK");
+		}
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -35,10 +40,9 @@ namespace DialogSampleApp
 
 			var s = new Section("Test Header", "Test Footer")
 			{
-				new StringElement("Do Something", "Foo", () => {
-					Console.WriteLine("Did Something");
-					
-				}),
+				new StringElement("Do Something", "Foo", (int)DroidResources.ElementLayout.dialog_labelfieldright, delegate {
+					Console.WriteLine("OK");
+				}, Resource.Color.creme, Android.Graphics.Color.Transparent),
 				new ButtonElement("DialogActivity", () => StartNew()),
 				new BooleanElement("Push my button", true),
 				new BooleanElement("Push this too", false),
@@ -47,30 +51,30 @@ namespace DialogSampleApp
 				new BooleanElement("Push this too", false),
 			};
 
-			s.BackgroundColor = Color.DarkRed;
+			//s.BackgroundColor = Color.DarkRed;
 
 			var root = new RootElement ("Test Root Elem")
                 {
                     s,
-                    new Section("Part II")
-                        {
-                            new StringElement("This is the String Element", "The Value", delegate {
-						Console.WriteLine("Clicked string element.");}
-                           ),
-                            new CheckboxElement("Check this out", true),
-                            new EntryElement("Username",""){
-                                Hint = "Enter Login"
-                            },
-                            new EntryElement("Password", "") {
-                                Hint = "Enter Password",
-                                Password = true,
-                            },
-							new ProgressBarElement("")
-                        },
-					new Section("Part III")
-						{
-							new ButtonElement("Hide Progress", () => HideProgress())
-						}
+//                    new Section("Part II")
+//                        {
+//                            new StringElement("This is the String Element", "The Value", delegate {
+//						Console.WriteLine("Clicked string element.");}
+//                           ),
+//                            new CheckboxElement("Check this out", true),
+//                            new EntryElement("Username",""){
+//                                Hint = "Enter Login"
+//                            },
+//                            new EntryElement("Password", "") {
+//                                Hint = "Enter Password",
+//                                Password = true,
+//                            },
+//							//new ProgressBarElement("")
+//                        },
+//					new Section("Part III")
+//						{
+//							new ButtonElement("Hide Progress", () => HideProgress())
+//						}
                 };
 
 			var da = new DialogAdapter (this, root);

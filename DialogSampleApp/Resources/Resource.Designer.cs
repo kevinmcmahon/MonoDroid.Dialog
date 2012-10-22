@@ -23,6 +23,50 @@ namespace DialogSampleApp
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f040008
+			public const int DarkBrown = 2130968584;
+			
+			// aapt resource value: 0x7f040005
+			public const int DarkRed = 2130968581;
+			
+			// aapt resource value: 0x7f040007
+			public const int Gold = 2130968583;
+			
+			// aapt resource value: 0x7f040009
+			public const int LightBrown = 2130968585;
+			
+			// aapt resource value: 0x7f040001
+			public const int black = 2130968577;
+			
+			// aapt resource value: 0x7f04000a
+			public const int creme = 2130968586;
+			
+			// aapt resource value: 0x7f040003
+			public const int grey = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int lightgrey = 2130968578;
+			
+			// aapt resource value: 0x7f040006
+			public const int listseparator = 2130968582;
+			
+			// aapt resource value: 0x7f04000b
+			public const int menufinderred = 2130968587;
+			
+			// aapt resource value: 0x7f040000
+			public const int transparent = 2130968576;
+			
+			// aapt resource value: 0x7f040004
+			public const int white = 2130968580;
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
@@ -32,8 +76,14 @@ namespace DialogSampleApp
 			// aapt resource value: 0x7f020001
 			public const int dialog_expander_ic_minimized = 2130837505;
 			
+			// aapt resource value: 0x7f020003
+			public const int focused = 2130837507;
+			
 			// aapt resource value: 0x7f020002
 			public const int icon = 2130837506;
+			
+			// aapt resource value: 0x7f020004
+			public const int selected = 2130837508;
 			
 			private Drawable()
 			{
@@ -43,50 +93,50 @@ namespace DialogSampleApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int dialog_BoolField = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int dialog_BoolField = 2131099648;
 			
-			// aapt resource value: 0x7f050003
-			public const int dialog_Button = 2131034115;
+			// aapt resource value: 0x7f060003
+			public const int dialog_Button = 2131099651;
 			
-			// aapt resource value: 0x7f05000a
-			public const int dialog_DisclosureField = 2131034122;
+			// aapt resource value: 0x7f06000a
+			public const int dialog_DisclosureField = 2131099658;
 			
-			// aapt resource value: 0x7f050005
-			public const int dialog_ImageLeft = 2131034117;
+			// aapt resource value: 0x7f060005
+			public const int dialog_ImageLeft = 2131099653;
 			
-			// aapt resource value: 0x7f050007
-			public const int dialog_ImageRight = 2131034119;
+			// aapt resource value: 0x7f060007
+			public const int dialog_ImageRight = 2131099655;
 			
-			// aapt resource value: 0x7f050001
-			public const int dialog_LabelField = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int dialog_LabelField = 2131099649;
 			
-			// aapt resource value: 0x7f050002
-			public const int dialog_LabelSubtextField = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int dialog_LabelSubtextField = 2131099650;
 			
-			// aapt resource value: 0x7f050008
-			public const int dialog_Panel = 2131034120;
+			// aapt resource value: 0x7f060008
+			public const int dialog_Panel = 2131099656;
 			
-			// aapt resource value: 0x7f05000b
-			public const int dialog_RadioButtonList = 2131034123;
+			// aapt resource value: 0x7f06000b
+			public const int dialog_RadioButtonList = 2131099659;
 			
-			// aapt resource value: 0x7f050006
-			public const int dialog_SliderField = 2131034118;
+			// aapt resource value: 0x7f060006
+			public const int dialog_SliderField = 2131099654;
 			
-			// aapt resource value: 0x7f05000c
-			public const int dialog_Spinner = 2131034124;
+			// aapt resource value: 0x7f06000c
+			public const int dialog_Spinner = 2131099660;
 			
-			// aapt resource value: 0x7f050004
-			public const int dialog_ValueField = 2131034116;
+			// aapt resource value: 0x7f060004
+			public const int dialog_ValueField = 2131099652;
 			
-			// aapt resource value: 0x7f05000e
-			public const int dialog_listView = 2131034126;
+			// aapt resource value: 0x7f06000e
+			public const int dialog_listView = 2131099662;
 			
-			// aapt resource value: 0x7f050009
-			public const int dialog_progressbar = 2131034121;
+			// aapt resource value: 0x7f060009
+			public const int dialog_progressbar = 2131099657;
 			
-			// aapt resource value: 0x7f05000d
-			public const int iFormFieldValue = 2131034125;
+			// aapt resource value: 0x7f06000d
+			public const int iFormFieldValue = 2131099661;
 			
 			private Id()
 			{
@@ -164,11 +214,11 @@ namespace DialogSampleApp
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int app_name = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int hello = 2131034112;
 			
 			private String()
 			{

@@ -56,18 +56,13 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\main.xml" />
     <AndroidResource Include="Resources\layout\dialog_progressbar.xml" />
+    <AndroidResource Include="Resources\values\Colors.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MonoDroid.Dialog\MonoDroid.Dialog.csproj">
-      <Project>{33044C7B-47A4-4113-A61A-EB429407F818}</Project>
-      <Name>MonoDroid.Dialog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dialog_disclosure.png" />
@@ -137,4 +132,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\MonoDroid.Dialog\MonoDroid.Dialog.csproj">
+      <Project>{33044C7B-47A4-4113-A61A-EB429407F818}</Project>
+      <Name>MonoDroid.Dialog</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

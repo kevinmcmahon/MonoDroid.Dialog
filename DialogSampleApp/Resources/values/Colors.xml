@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="transparent">#00000000</color>
+  <color name="black">#000000</color>
+  <color name="lightgrey">#bbbbbb</color>
+  <color name="grey">#333333</color>
+  <color name="white">#ffffff</color>
+  <color name="DarkRed">#DD322D</color>
+  <color name="listseparator">#2A3748</color>
+  <color name="Gold">#F4A309</color>
+  <color name="DarkBrown">#493522</color>
+  <color name="LightBrown">#59432E</color>
+  <drawable name="focused">#ff5500</drawable>
+  <drawable name="selected">#FF00FF</drawable>
+  <color name="creme">#e9e7ce</color>
+  <color name="menufinderred">#dd322d</color>
+</resources>
