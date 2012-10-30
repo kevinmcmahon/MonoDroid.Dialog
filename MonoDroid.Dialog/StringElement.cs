@@ -128,18 +128,17 @@ namespace MonoDroid.Dialog
 
 				if (Click != null) {
 					view.Touch += delegate(object sender, View.TouchEventArgs e) {
-						//Console.WriteLine(e.Event.Action.ToString());
-						if (e.Event.Action == MotionEventActions.Down) {
-							if(PressBackgroundResource > 0)
-							{
+						if (e.Event.Action == MotionEventActions.Up) {
+							view.SetBackgroundColor (ReleaseBackgroundColor);
+							this.Click ();
+						} else if (e.Event.Action == MotionEventActions.Cancel) {
+							view.SetBackgroundColor (ReleaseBackgroundColor);
+						} else {
+							if (PressBackgroundResource > 0) {
 								view.SetBackgroundResource (PressBackgroundResource);
 							}
-						} else {
-							view.SetBackgroundColor (ReleaseBackgroundColor);
-
-							this.Click ();
 						}
-					
+										
 					};
 				}
 			}
